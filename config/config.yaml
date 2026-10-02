@@ -1,0 +1,21 @@
+# Runtime parameters — loaded by AgentRegistry, passed as Graph(config=...).
+# Separate from config/agent.yaml (the static manifest).
+#
+# Every value below is read at run time. max_retry is consumed by the framework
+# backbone router; the retrieval and summary blocks are resolved by the input
+# gate into state["search_options"] and are what the retrieval, ranking and
+# rendering nodes actually run on. A caller may override the retrieval and
+# summary values per request via input_context, within the same bounds.
+
+max_retry: 3
+timeout_s: 30
+
+retrieval:
+  # How many scored document chunks survive retrieval (1–20).
+  top_k: 5
+  # Relevance floor applied after re-ranking; 0.0 keeps everything (0.0–1.0).
+  min_score: 0.0
+
+summary:
+  # How many ranked results are rendered into the report (1–10).
+  top_n: 3
